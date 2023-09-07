@@ -29,6 +29,13 @@ Problem = namedtuple('Problem', [])
 
     
 def make_density_map(plan,row,col):
+
+    '''
+
+    Returns a density map from a plan.
+
+    '''
+
     density_map=[]
 
     #First row
@@ -58,6 +65,12 @@ def make_density_map(plan,row,col):
 
 
 def get_smallest_density(density_map,row,col):
+
+    '''
+    Returns the position list of the smallest density in the density map.
+    
+    '''
+
     #Initializing the smallest density and the position list
     smallest_density=density_map[0][0]
     position=[(0,0)]
@@ -76,33 +89,51 @@ def get_smallest_density(density_map,row,col):
 
 
 def position_testing(position,size, plan):
+    '''
+    Tests if a position is valid for a given size and a given plan with little DeltaX and DeltaY that watch around the position.
+
+    Returns True if the position is valid, False otherwise.
+
+    '''
+
     Delta_P=size//2
+    if size%2:
+        parity_compensation=0
+    else:
+        parity_compensation=-1
+
     is_valid=True
 
-    out_of_boundsX=False
-    out_of_boundsY=False
-    #Chosing little DeltaX and DeltaY
-    for DeltaX in range(-1,1,1+(size+1)%2):
-        for DeltaY in range(-1,1,1+(size+1)%2):
+    #Chosing little DeltaX
+    for DeltaX in range(-1-parity_compensation,2,1):
 
-            #Testing if the position is out of bounds
-            if position[0]+DeltaX-Delta_P<0 or position[0]+DeltaX+Delta_P>=len(plan[0]):
-                out_of_boundsX=True
-            if position[1]+DeltaY-Delta_P<0 or position[1]+DeltaY+Delta_P>=len(plan):
-                out_of_boundsY=True
-            if out_of_boundsX or out_of_boundsY:
-                break
+        #Testing if the x-position is out of bounds
+        if position[1]+DeltaX-Delta_P>=0 and position[1]+DeltaX+Delta_P+parity_compensation<len(plan[0]):
 
+            #Chosing little DeltaY
+            for DeltaY in range(-1-parity_compensation,2,1):
 
+                #Testing if the y-position is out of bounds
+                if  position[0]+DeltaY-Delta_P>=0 and position[0]+DeltaY+Delta_P+parity_compensation<len(plan):
 
-            #Testing the position
-            for row in plan[position[1]+DeltaY-Delta_P:position[1]+DeltaY+Delta_P+1]:
-                if sum(row[position[0]+DeltaX-Delta_P:position[0]+DeltaX+Delta_P+1])!=0:
-                    is_valid=False
-                    break
-            if is_valid:
-                return True
-            is_valid=True
+                    #Testing the position
+                    temp_plan=plan[position[0]+DeltaY-Delta_P:position[0]+DeltaY+Delta_P+1+parity_compensation]
+
+                    for row in temp_plan:
+
+                        #Testing if the row is valid, if not, it breaks the loop, if yes, it continues
+                        temp_row=row[position[1]+DeltaX-Delta_P:position[1]+DeltaX+Delta_P+1+parity_compensation]
+
+                        if sum(temp_row)!=0:
+                            is_valid=False
+                            break
+                    
+                    #Returning True if the position is valid
+                    if is_valid:
+                        return True
+                    is_valid=True
+            
+    #After all the testing, if none of the position is valid, it returns False            
     return False
 
 
@@ -117,13 +148,13 @@ def parse_input():
     
     '''
     #Harvesting data
-    row, col= map(int, input().split(' '))
+    row, col= [int(x) for x in input().split(' ')]
     plan = []
     max_size_square = min(row,col)
 
-
+    #Making the plan from the console input by adding each row to the plan
     for r in range(row):
-        plan.append(input().split(' '))
+        plan.append([int(x) for x in input().split(' ')])
 
     #Making density map from the plan
     density_map = make_density_map(plan,row,col)
@@ -131,31 +162,26 @@ def parse_input():
     #Getting the smallest density and the position list
     position = get_smallest_density(density_map,row,col)
     
+    
     #Position testing loop
-
     for size in range(max_size_square,0,-1):
         for pos in position:
-            continue
+            if position_testing(pos,size,plan):
+                return size
+                exit()
 
-    
 
 
+#Way of imporvement : selection the best position in the position list by testing in order by the max_sized_square possible by lokking on each direction of the positon.
 
-    return Problem()
 
 def solve(problem):
-    result = []
-    
-    
-
-
-    return result
+    return problem
         
     
     
 def output(result):
-    for r in result:
-        print(r)
+        print(result)
     
             
 
