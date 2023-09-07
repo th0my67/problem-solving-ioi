@@ -135,7 +135,7 @@ def parse_input():
 
     for size in range(max_size_square,0,-1):
         for pos in position:
-
+            continue
 
     
 
