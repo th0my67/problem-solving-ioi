@@ -12,7 +12,7 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 # read input from file tests/test1.in as if type on the keyboard
 # This shouldn't run on France-IOI
 # replace this with the name of your test file
-test_file = 'test1.in'
+test_file = 'test2.in'
 
 import sys, os, platform
 # only if executed on Python 3.11 (gitpod), will be false on france-ioi
@@ -136,6 +136,56 @@ def position_testing(position,size, plan):
     #After all the testing, if none of the position is valid, it returns False            
     return False
 
+def quick_ranking(position_list,plan):
+    ''' 
+    Retrun a list of positions sorted by the max space around them.
+    
+    '''
+
+    #Initializing score of position list
+    position_score=[]
+    #Initializing the size of the plan
+    row=len(plan)
+    col=len(plan[0])
+
+    #Ranking loop
+    for position in position_list:
+
+
+        #Initializing the radius
+        radius=1
+        while True:
+            
+            #Rigth side check
+            if position[1]+radius>=col:
+                break
+            if plan[position[0]][position[1]+radius]:
+                break
+            #Up side check
+            if position[0]-radius<0:
+                break
+            if plan[position[0]-radius][position[1]]:
+                break
+            #Left side check
+            if position[1]-radius<0:
+                break
+            if plan[position[0]][position[1]-radius]:
+                break
+            #Down side check
+            if position[0]+radius>=row:
+                break
+            if plan[position[0]+radius][position[1]]:
+                break
+            radius+=1
+        position_score.append(radius*2)
+    
+    #Sorting the position list by the score
+    position_list = sorted(zip(position_score, position_list), reverse=True)
+
+    #Returning the sorted position list
+    return position_list
+
+
 
 
 
@@ -162,13 +212,27 @@ def parse_input():
     #Getting the smallest density and the position list
     position = get_smallest_density(density_map,row,col)
     
-    
+    #Ranking the position list by the max space around them
+    position = quick_ranking(position,plan)
+
     #Position testing loop
-    for size in range(max_size_square,0,-1):
+    max_size_found=0
+    courrent_size=0
+    for pos in position:
+        if pos[0]<=max_size_found:
+            break
+        courrent_size=pos[0]
+        while courrent_size>=max_size_found and not position_testing(pos[1],courrent_size,plan):
+            courrent_size-=1
+        max_size_found=courrent_size
+    return max_size_found
+
+
+    """for size in range(max_size_square,0,-1):
         for pos in position:
             if position_testing(pos,size,plan):
                 return size
-                exit()
+                exit()"""
 
 
 
