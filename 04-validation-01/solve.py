@@ -236,8 +236,11 @@ def parse_input():
 
 
 
-#Way of imporvement : selection the best position in the position list by testing in order by the max_sized_square possible by lokking on each direction of the positon.
+#Way of improvement : selection the best position in the position list by testing in order by the max_sized_square possible by lokking on each direction of the positon.
 
+
+#Way of improvement : FFT
+#Other way : multiscale analysis based on 3 by 3 square that take the value of the dominant value of the square to reduce siue of the map
 
 def solve(problem):
     return problem
