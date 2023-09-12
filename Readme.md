@@ -11,6 +11,10 @@
 
 1. Créer un commit
 
-1. Ajouter le commit à la zone de transit
+1. Ajouter le commit à la **zone de transit**
+
+    ```bash
+    git add .
+    ```
 
 1. Pousser le commit sur le remote
