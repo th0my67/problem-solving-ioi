@@ -9,12 +9,16 @@
 
 ## Petite modification
 
-1. Créer un commit
-
-1. Ajouter le commit à la **zone de transit**
+1. Ajouter les modifications à la **zone de transit** (*staging area*)
 
     ```bash
     git add .
     ```
+1. Créer un commit
+
+    ```bash
+    git commit -m "Ajout du mode d'emploi"
+    ```
 
 1. Pousser le commit sur le remote
+
