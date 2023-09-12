@@ -12,7 +12,7 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 # read input from file tests/test1.in as if type on the keyboard
 # This shouldn't run on France-IOI
 # replace this with the name of your test file
-test_file = 'test1.in'
+test_file = 'test3.in'
 
 import sys, os, platform
 # only if executed on Python 3.11 (gitpod), will be false on france-ioi
@@ -191,7 +191,7 @@ def parse_input():
 
     #Harvest, store and organize the data
     mos_map = data_harvester()
-    
+    print(mos_map.reduced_map_list)
 
 
 
