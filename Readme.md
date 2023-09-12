@@ -7,7 +7,7 @@
 - Utilisez les fichiers dans le dossier `tests` pour déboguer votre programme sur des tests spécifiques
 - Copiez ce code dans France-IOI pour l'évaluer
 
-## Petite modification
+## Sauver des modifications
 
 1. Ajouter les modifications à la **zone de transit** (*staging area*)
 
