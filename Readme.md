@@ -22,3 +22,9 @@
 
 1. Pousser le commit sur le remote
 
+    ```bash
+    git push
+    ```
+
+
+
