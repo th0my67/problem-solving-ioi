@@ -12,7 +12,7 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 # read input from file tests/test1.in as if type on the keyboard
 # This shouldn't run on France-IOI
 # replace this with the name of your test file
-test_file = 'test3.in'
+test_file = 'test1.in'
 
 import sys, os, platform
 # only if executed on Python 3.11 (gitpod), will be false on france-ioi
@@ -22,31 +22,12 @@ if platform.python_version_tuple()[:2] == ('3', '11'):
 ##################################################################
 
 
-##################################################################
-##################################################################
-#
-#To do list:
-#   Create a way to link the reduced maps to the original map
-#   Create a way to find the smallest density in the reduced maps
-#      
-#   Think about the tiling cause it may cut the biggest camp
-#   
-#   Find the biggest square in the reduced map and then check on the original map the edges but only the edges and not the center that has already been checked
-#
-#
-##################################################################
-##################################################################
-
-
 
 from collections import namedtuple
-from solve2Library import *
-
 
 Problem = namedtuple('Problem', [])
 
     
-
 
 
 def parse_input():
@@ -57,26 +38,36 @@ def parse_input():
     
     '''
 
-    #Harvest, store and organize the data
-    mos_map = data_harvester()
-    print(mos_map.reduced_map_list)
+    Na= int(input())
+    ValueNa =  tuple(map(int,input().split()))
+    Nb= int(input())
+    ValueNb =  tuple(map(int,input().split()))
 
 
+    Pa=0
+    Pb=0
+    sortedValue = []
 
-
-
-    return Problem()
+    while Pa < Na and Pb < Nb:
+        if ValueNa[Pa] < ValueNb[Pb]:
+            sortedValue.append(ValueNa[Pa])
+            Pa+=1
+        else:
+            sortedValue.append(ValueNb[Pb])
+            Pb+=1
+    if Pa < Na:
+        sortedValue.extend(ValueNa[Pa:])
+    if Pb < Nb:
+        sortedValue.extend(ValueNb[Pb:])
+    return sortedValue
 
 def solve(problem):
-    result = []
-    
-    return result
+    return problem
         
     
     
 def output(result):
-    for r in result:
-        print(r)
+    print(*result)
     
             
 
