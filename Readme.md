@@ -8,16 +8,22 @@
 - Copiez ce code dans France-IOI pour l'évaluer
 
 
+
+## Sauver des modifications
+
 1. Créer un commit
-    
+
+    ```bash
+    git add .
+    ```
 2. Ajouter les modifications à la zone de transit (staging area)
 
-```bash
-git add .
-```
+    ```bash 
+    git commit -m "message de commit"
+    ```
 
-3.Pousser le commit sur le remote
+3. Pousser le commit sur le remote
 
-```bash 
-git commit -m "message de commit"
-```
+    ```bash
+    git push
+    ```
