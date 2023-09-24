@@ -12,7 +12,7 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 # read input from file tests/test1.in as if type on the keyboard
 # This shouldn't run on France-IOI
 # replace this with the name of your test file
-test_file = 'test3.in'
+test_file = 'test1.in'
 
 import sys, os, platform
 # only if executed on Python 3.11 (gitpod), will be false on france-ioi
@@ -22,31 +22,12 @@ if platform.python_version_tuple()[:2] == ('3', '11'):
 ##################################################################
 
 
-##################################################################
-##################################################################
-#
-#To do list:
-#   Create a way to link the reduced maps to the original map
-#   Create a way to find the smallest density in the reduced maps
-#      
-#   Think about the tiling cause it may cut the biggest camp
-#   
-#   Find the biggest square in the reduced map and then check on the original map the edges but only the edges and not the center that has already been checked
-#
-#
-##################################################################
-##################################################################
-
-
 
 from collections import namedtuple
-from solve2Library import *
-
 
 Problem = namedtuple('Problem', [])
 
     
-
 
 
 def parse_input():
@@ -56,20 +37,29 @@ def parse_input():
     well structured.
     
     '''
+    n=int(input())
+    FactorialLliste=(479001600, 39916800, 3628800, 362880, 40320, 5040, 720, 120, 24, 6, 2, 1)
+    Liste=[0,0,0,0,0,0,0,0,0,0,0,0]
+    for i in range(12):
+        Liste[i]=n//FactorialLliste[i]
+        n-=Liste[i]*FactorialLliste[i]
+    i=0
+    while Liste[i]==0:
+        i+=1
+    cutListe=Liste[i:]
+    cutListe.reverse()
+    p=12-i
+    result=""
+    for i in cutListe:
+        result+=str(i)+" "
+    print(p)
+    print(result)    
 
-    #Harvest, store and organize the data
-    mos_map = data_harvester()
-    zero_positions = get_zero_position(mos_map.reduced_map_list[-1])
-    find_square_and_get_angle_position(zero_positions)
-
-
-
-
-
-    return Problem()
 
 def solve(problem):
-    result = []
+
+
+
     
     return result
         

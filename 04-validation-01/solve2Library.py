@@ -62,6 +62,30 @@ def data_harvester():
     '''
     Harvests the data from the input and returns it in a well structured
     way.
+    Exemple :
+
+    Input :
+
+    8 5
+    1 0 1 0 1 1 0 1
+    1 0 1 0 1 1 0 1
+    0 1 0 0 0 1 0 0
+    1 0 0 1 0 0 1 1
+    0 1 0 0 0 1 0 0
+
+    Output :
+    Plan:
+
+    size = (8, 5)
+
+    mosquitos_map = (
+    (1, 0, 1, 0, 1, 1, 0, 1),
+    (1, 0, 1, 0, 1, 1, 0, 1),
+    (0, 1, 0, 0, 0, 1, 0, 0),
+    (1, 0, 0, 1, 0, 0, 1, 1),
+    (0, 1, 0, 0, 0, 1, 0, 0)
+    )
+
     
     '''
 
@@ -132,6 +156,74 @@ def get_smallest_density(density_map,row,col):
                 position.append((r,c))
 
     return position
+
+
+def get_zero_position(mos_map:tuple):
+    
+    '''
+    test
+    
+    '''
+    zero_pos=[]
+    for r in range(len(mos_map)):
+        zero_pos.append([])
+        for c in range(len(mos_map[0])):
+            if mos_map[r][c]==0:
+                zero_pos[r].append(c)
+    return tuple(zero_pos)
+
+
+
+def find_square_and_get_angle_position(plan_map:tuple):
+    '''
+    test
+    
+    '''
+    squarelist=[]
+    max_size_square=0
+    
+
+
+def square_Finder_setVersion(zeros_positions:tuple,dimension:int):
+    '''
+    
+    '''
+
+
+
+    
+    if dimension==2:
+        for row in zeros_positions:
+            setlist=[]
+            setlist.append(square_Finder_setVersion(row,1))
+        setlist=tuple(setlist)
+        for row in setlist:
+            for consecutivePos in row:
+                size=len(consecutivePos)
+                while i < size:
+                    while max(row[i+1]) :
+
+
+    elif dimension==1:
+        i=0
+        consecutive_positions_list=[]
+        while i < len(zeros_positions):
+            start_pos=zeros_positions[i]
+            while i < len(zeros_positions) and zeros_positions[i]==zeros_positions[i+1]-1:
+                i+=1
+            end_pos=zeros_positions[i]
+            consecutive_positions_list.append(set(range(start_pos,end_pos+1)))
+        return tuple(consecutive_positions_list)
+
+            
+
+                
+
+
+
+
+
+
 
 
 
