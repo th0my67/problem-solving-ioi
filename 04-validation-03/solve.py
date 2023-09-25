@@ -1,0 +1,88 @@
+'''
+
+Template for France-IOI programming tasks with debugger in gitpod
+
+The Python version on gitpod is 3.11, whereas the python version on france-ioi
+is sadly stuck at 3.4.2 ... This means no type hints, no dataclasses, ... The
+code should therefore remain pretty basic to run flawlessly on france-ioi
+
+'''
+
+##################################################################
+# read input from file tests/test1.in as if type on the keyboard
+# This shouldn't run on France-IOI
+# replace this with the name of your test file
+test_file = 'test1.in'
+
+import sys, os, platform
+# only if executed on Python 3.11 (gitpod), will be false on france-ioi
+if platform.python_version_tuple()[:2] == ('3', '11'):
+    os.chdir(os.path.dirname(__file__))
+    sys.stdin = open(os.path.join('tests', test_file), "r")
+##################################################################
+
+
+
+from collections import namedtuple
+
+Problem = namedtuple('Problem', [])
+
+n=4
+board=[1]*n
+
+def is_valid_play(play):
+    """
+    Rule 1: We can set the first position to 0 or 1 whenever we want
+    Rule 2: If first position is set to 1, we can set the second position to 0 or 1
+    Rule 3: For position 3<=i<=18, we can set it to 0 or 1 if the position 0 to i-1 are set to 0 and i-i is set to 1
+    """
+    if play>=2:
+        if board[play-1] and sum(board[:play-1])==0:
+            return (True)
+        else:
+            for i in range(play-1,0,-1):
+                if board[i]:
+                    return (False,i)
+    elif play==1:
+        if board[0]:
+            return (True)
+        else:
+            return (False,0)
+    elif play==0:
+        return (True)
+
+def board_play(play):
+    board[play]=-board[play]
+
+
+
+    
+
+
+def parse_input():
+    '''
+    
+    Parses the input data and returns a dictionary with everything
+    well structured.
+    
+    '''
+    return Problem()
+
+def solve(problem):
+    result = []
+    
+    return result
+        
+    
+    
+def output(result):
+    for r in result:
+        print(r)
+    
+            
+
+
+if __name__ == '__main__':
+    problem = parse_input()
+    result = solve(problem)
+    output(result)
