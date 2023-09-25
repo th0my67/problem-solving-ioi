@@ -29,7 +29,9 @@ def board_play(play):
         board[play]=0
     else:
         board[play]=1
-
+if n==1:
+    print(1)
+    exit()
 while True:
     if board[-1]:
 
