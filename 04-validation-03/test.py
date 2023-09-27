@@ -1,5 +1,8 @@
-n=int(input())
-board=[1]*n
+import json
+
+
+
+
 
 def is_valid_play(play):
     """
@@ -29,19 +32,29 @@ def board_play(play):
         board[play]=0
     else:
         board[play]=1
-if n==1:
-    print(1)
-    exit()
+
+cache=[]
+n=int(input())
+board=[1]*n
 while True:
+
     if board[-1]:
 
         plays =is_valid_play(len(board)-1)
         last_play=len(board)-1
+        cache.append(last_play)
         while not plays[0]:
             last_play=plays[1]
             plays =is_valid_play(plays[1])
-        print(last_play+1)
-        board_play(last_play)
+            cache.append(last_play)
+    
+        for i in range(len(cache)-1,-1,-1):
+            if is_valid_play(cache[i])[0]:
+                print(cache[i]+1)
+                board_play(cache[i])
+            else:
+                break
+        cache=[]
     else:
         board=board[:-1]
         if len(board)==1:
