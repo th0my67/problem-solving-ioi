@@ -11,18 +11,11 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 ######################## Tests ###############################
 try:
     from soiutils import load_test
-    load_test('test1')
+    load_test('test0')
 except:
     pass
 ######################## Tests ###############################
     
-from collections import namedtuple
-
-Problem = namedtuple('Problem', [])
-
-    
-
-
 def parse_input():
     '''
     
@@ -30,10 +23,38 @@ def parse_input():
     well structured.
     
     '''
-    return Problem()
+    problem = {}
+    
+    nb_livres, nb_jours = [int(x) for x in input().split(' ')]
+    problem['nb_livres'] = nb_livres
+    problem['nb_jours'] = nb_jours
+    problem['jours'] = []
+    
+    for _ in range(nb_jours):
+        nb_clients = int(input())
+        
+        jour = {
+            'reservations': []
+        }
+        
+        for i_client in range(nb_clients):
+            i_livre, duree = [int(x) for x in input().split(' ')]
+            reservation = {
+                'i_livre': i_livre,
+                'duree': duree,
+            }
+            jour['reservations'].append(reservation)
+            
+        problem['jours'].append(jour)
+        
+    return problem
+
+
 
 def solve(problem):
-    result = [1, 0, 1]
+    result = []
+    
+   
     
     return result
         

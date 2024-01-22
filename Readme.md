@@ -7,6 +7,26 @@
 - Utilisez les fichiers dans le dossier `tests` pour déboguer votre programme sur des tests spécifiques
 - Copiez ce code dans France-IOI pour l'évaluer
 
+## Sauver des modifications
+
+1. Ajouter les modifications à la **zone de transit** (*staging area*)
+
+    ```bash
+    git add .
+    ```
+1. Créer un commit
+
+    ```bash
+    git commit -m "Ajout du mode d'emploi"
+    ```
+
+1. Pousser le commit sur le remote
+
+    ```bash
+    git push
+    ```
+
+
 
 
 ## Sauver des modifications
