@@ -12,7 +12,7 @@ code should therefore remain pretty basic to run flawlessly on france-ioi
 # read input from file tests/test1.in as if type on the keyboard
 # This shouldn't run on France-IOI
 # replace this with the name of your test file
-test_file = 'test1.in'
+test_file = 'test2.in'
 
 import sys, os, platform
 # only if executed on Python 3.11 (gitpod), will be false on france-ioi
@@ -27,57 +27,54 @@ def harvester():
     manteaux = [input() for _ in range(n)]
 
     for i, manteau in enumerate(manteaux):
-        manteaux[i] = [int(x) for x in manteau.split()]
-        manteaux[i].append(i)
-        manteaux[i] = tuple(manteaux[i])
+        manteaux[i] = [tuple([int(x) for x in manteau.split()]),i,set()]
+        
 
     return manteaux
 
-def get_best_manteaux(manteaux):
-    
-    any_sup = True
-    while any_sup:
-        any_sup = False
-        i = 0
-        while i < len(manteaux)-1:
-            low = manteaux[i][0] - manteaux[i+1][0]
-            high = manteaux[i][1] - manteaux[i+1][1]
+
+def compare_manteaux(manteaux:list):
+    i = 0
+    has_break = False
+    while i < len(manteaux):
+        j = i+1
+        while j < len(manteaux):
+            low = manteaux[i][0][0] - manteaux[j][0][0]
+            high = manteaux[i][0][1] - manteaux[j][0][1]
             if low <= 0 and high >= 0:
-                manteaux.pop(i+1)
-                any_sup = True
+                manteaux[i][2].add(manteaux[j][1])
+                manteaux[i][2] = manteaux[i][2].union(manteaux[j][2])
+                manteaux.pop(j)
                 continue
             elif low >= 0 and high <= 0:
+                manteaux[j][2].add(manteaux[i][1])
+                manteaux[j][2] = manteaux[j][2].union(manteaux[i][2])
                 manteaux.pop(i)
-                any_sup = True
-                continue
-            i += 1
-    return manteaux
-                    
-def get_level(meilleur_manteau, manteaux):
-    manteaux.pop(meilleur_manteau[2])
-    level = 0
-    for manteau in manteaux:
-        if meilleur_manteau[0] <= manteau[0] and meilleur_manteau[1] >= manteau[1]:
-            level += 1
-    return level
+                has_break = True
+                break
+            j += 1
+        if has_break:
+            has_break = False
+            continue
+        i += 1
 
+def get_best_level(manteaux):
+    best_level = 0
+    for manteau in manteaux: 
+        level = len(manteau[2])
+        if level > best_level:
+            best_level = level
+    return best_level
 
+    
 
 def main():
     manteaux = harvester()
-    best_manteaux = get_best_manteaux(manteaux[:])
-
-    manteaux_level = [0]*len(best_manteaux)
-    for i , manteau in enumerate(best_manteaux):
-        manteaux_level[i] = get_level(manteau, manteaux[:])
-    return max(manteaux_level)
-    
-
-
-
+    compare_manteaux(manteaux)
+    print(get_best_level(manteaux))
 
 
 
 
 if __name__=='__main__':
-    print(main())
+    main()
